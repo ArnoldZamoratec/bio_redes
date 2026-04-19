@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Arnold Zamora | Desarrollador de Élite</title>
+    <meta name="description" content="Portafolio y enlaces de Arnold Zamora, Arquitecto de Software y Creador.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-white selection:bg-white selection:text-black">
+
+    <!-- Schermata di Accesso -->
+    <div id="enter-overlay" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer">
+        <div class="text-center space-y-6 group">
+            <div class="w-14 h-14 mx-auto border-2 border-white/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-white/50 transition-all duration-500 animate-bounce">
+                <i class="fas fa-fingerprint text-white/70 text-xl group-hover:text-white transition-colors"></i>
+            </div>
+            <div class="space-y-2">
+                <p class="text-xs tracking-[0.4rem] text-white/80 font-light uppercase group-hover:text-white transition-colors group-hover:shadow-white drop-shadow-lg">
+                    [ Clic para acceder ]
+                </p>
+                <p class="text-[10px] text-white/30 font-mono tracking-widest uppercase">Arnold Zamora · Perfil de Élite</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 z-0 pointer-events-none bg-black">
+    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60">
+        <source src="videos/Cyberpunk_Hacker_Animation_Generated.mp4" type="video/mp4">
+        Tu navegador no soporta videos embebidos.
+    </video>
+    
+    <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-[#0a0a14]/60 to-black/90"></div>
+    
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-50"></div>
+</div>
+
+    <!-- Contenitore Principale -->
+    <main class="relative z-10 min-h-screen flex items-center justify-center p-4 sm:p-6 opacity-0" id="main-content">
+        <div id="profile-card" class="glass-ultimate w-full max-w-[420px] p-8 text-center tilt-card" style="transform-style: preserve-3d;">
+            
+            <!-- Avatar -->
+            <div class="profile-group relative mx-auto w-28 h-28 mb-6 float-soft cursor-pointer">
+                <img src="img/ChatGPT Image 19 abr 2026, 02_08_21 p.m..png" alt="Arnold Zamora" class="w-full h-full rounded-full object-cover avatar-neon">
+                <!-- Punto di Stato -->
+                <div class="absolute bottom-1 right-1 bg-[#10b981] w-4 h-4 rounded-full border-2 border-[#1a1a24] shadow-[0_0_15px_rgba(16,185,129,0.8)] animate-pulse"></div>
+            </div>
+
+            <!-- Intestazione -->
+            <div class="flex items-center justify-center gap-2 mb-1">
+                <h1 class="text-3xl font-bold tracking-tight bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Arnold Zamora</h1>
+                <svg class="w-5 h-5 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L15 8H9L12 2Z M12 22L9 16H15L12 22Z M2 12L8 9V15L2 12Z M22 12L16 9V15L22 12Z" fill-rule="evenodd"/>
+                </svg>
+            </div>
+
+            <!-- Sottotitolo Macchina da Scrivere -->
+            <div class="h-6 mb-5 flex justify-center items-center">
+                <p class="text-sm text-gray-400 font-mono tracking-wide">
+                    <span id="dynamic-role"></span><span class="cursor-blink"></span>
+                </p>
+            </div>
+
+            <!-- Distintivo Posizione -->
+            <div class="location-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest mx-auto mb-8 bg-white/5 border border-white/10 shadow-lg">
+                <i class="fas fa-map-pin text-red-400"></i>
+                <span class="text-gradient-location">LIMA, PERÚ</span>
+            </div>
+
+            <!-- Sezione Link -->
+            <div class="flex flex-col gap-4">
+                
+                <!-- GitHub -->
+                <a href="https://github.com/ArnoldZamoratec" target="_blank" rel="noopener noreferrer" class="link-cascade premium-btn flex items-center justify-between px-6 py-3.5 rounded-2xl w-full group">
+                    <div class="flex items-center gap-4">
+                        <i class="fab fa-github text-[22px] text-gray-300 group-hover:text-white transition-colors"></i>
+                        <span class="font-medium text-sm tracking-wide text-gray-200 group-hover:text-white">GitHub · Código Abierto</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-sm opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-gray-400 group-hover:text-white"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/0xarnold/" target="_blank" rel="noopener noreferrer" class="link-cascade premium-btn flex items-center justify-between px-6 py-3.5 rounded-2xl w-full group">
+                    <div class="flex items-center gap-4">
+                        <i class="fab fa-instagram text-[22px] text-gray-300 group-hover:text-pink-500 transition-colors"></i>
+                        <span class="font-medium text-sm tracking-wide text-gray-200 group-hover:text-white">Instagram · 0xarnold</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-sm opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-gray-400 group-hover:text-white"></i>
+                </a>
+
+                <!-- Spotify Playlist -->
+                <a href="https://open.spotify.com/user/zav150grb3kis2ys0ityfa0ys?si=94514c76f95240da" target="_blank" rel="noopener noreferrer" class="link-cascade premium-btn shimmer-spotify flex items-center justify-between px-6 py-3.5 rounded-2xl w-full group border-l-2 border-l-transparent hover:border-l-[#1DB954]">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div class="relative flex items-center justify-center">
+                            <i class="fab fa-spotify text-[22px] text-gray-300 group-hover:text-[#1DB954] transition-colors relative z-10"></i>
+                            <div class="absolute inset-0 bg-[#1DB954] blur-lg opacity-0 group-hover:opacity-40 transition-opacity rounded-full scale-150"></div>
+                        </div>
+                        <span class="font-medium text-sm tracking-wide text-gray-200 group-hover:text-white">Playlist de Élite</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex gap-[3px] items-end h-3.5">
+                            <span class="w-[2px] bg-gray-500 h-1.5 rounded-full group-hover:bg-[#1DB954] group-hover:h-3 transition-all duration-200"></span>
+                            <span class="w-[2px] bg-gray-500 h-2.5 rounded-full group-hover:bg-[#1DB954] group-hover:h-4 transition-all duration-300 delay-75"></span>
+                            <span class="w-[2px] bg-gray-500 h-2 rounded-full group-hover:bg-[#1DB954] group-hover:h-2.5 transition-all duration-200 delay-150"></span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Etiqueta Pie de Página -->
+            <div class="mt-8">
+                <p class="text-[10px] text-white/30 font-mono flex items-center justify-center gap-2 hover:text-white/60 transition-colors cursor-default">
+                    <i class="fas fa-code"></i> <span>#innovación tecnológica</span> <i class="fas fa-globe-americas"></i>
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
