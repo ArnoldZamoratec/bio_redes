@@ -42,8 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     spotifyVisualizer.classList.remove('active');
                 } else {
                     spotifyVisualizer.classList.add('active');
+                    spotifyContainer.classList.add('show');
+                    document.getElementById('ambient-music-glow').classList.add('pulsing');
                 }
             });
+
+            // Global interaction fallback for auto-play
+            const startOnInteraction = () => {
+                spotifyEmbedController.play();
+                window.removeEventListener('click', startOnInteraction);
+                window.removeEventListener('touchstart', startOnInteraction);
+            };
+            window.addEventListener('click', startOnInteraction);
+            window.addEventListener('touchstart', startOnInteraction);
         };
         IFrameAPI.createController(element, options, callback);
     };
