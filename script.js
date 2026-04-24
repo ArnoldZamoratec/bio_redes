@@ -212,8 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show Spotify Player with delay for impact
         setTimeout(() => {
             spotifyContainer.classList.add('show');
+            document.getElementById('ambient-music-glow').classList.add('pulsing');
             if (spotifyEmbedController) {
-                // Spotify requires user interaction, which this click provides
                 spotifyEmbedController.play();
             }
         }, 1500);
