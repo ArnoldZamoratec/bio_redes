@@ -19,6 +19,9 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Spotify Iframe API -->
+    <script src="https://open.spotify.com/embed-api/v1/iframe-api.js" async></script>
 </head>
 <body class="text-white selection:bg-white selection:text-black overflow-hidden">
     
@@ -43,6 +46,21 @@
         
         <!-- Particles -->
         <canvas id="particle-canvas" class="absolute inset-0 opacity-50 mix-blend-screen"></canvas>
+        
+        <!-- Music Player UI -->
+        <div id="spotify-player-container" class="fixed bottom-6 right-6 z-[60] transition-all duration-700 translate-y-20 opacity-0">
+            <div class="spotify-glass-card group/player">
+                <div id="spotify-embed"></div>
+                <div class="player-controls-overlay">
+                    <div class="track-info">
+                        <div class="track-visualizer">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="text-xs font-mono tracking-widest text-white/40 uppercase">System Audio: Active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Main Experience Overlay -->
@@ -123,15 +141,15 @@
                     <i class="fas fa-chevron-right text-[10px] opacity-30"></i>
                 </a>
 
-                <a href="https://open.spotify.com/user/zav150grb3kis2ys0ityfa0ys?si=94514c76f95240da" target="_blank" rel="noopener noreferrer" class="link-btn spotify-btn">
+                <button id="spotify-toggle" class="link-btn spotify-btn w-full">
                     <div class="flex items-center gap-4">
                         <div class="icon-box"><i class="fab fa-spotify"></i></div>
                         <span class="text-sm font-medium tracking-wide">Soundscape Elite</span>
                     </div>
-                    <div class="audio-visualizer">
+                    <div class="audio-visualizer active">
                         <span></span><span></span><span></span>
                     </div>
-                </a>
+                </button>
 
             </div>
 

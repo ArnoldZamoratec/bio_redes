@@ -225,6 +225,12 @@ body.cursor-hover .cursor-outline {
     align-items: flex-end;
     gap: 3px;
     height: 14px;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.audio-visualizer.active {
+    opacity: 1;
 }
 
 .audio-visualizer span {
@@ -236,6 +242,101 @@ body.cursor-hover .cursor-outline {
 
 .audio-visualizer span:nth-child(2) { animation-delay: 0.2s; height: 100%; }
 .audio-visualizer span:nth-child(3) { animation-delay: 0.4s; height: 60%; }
+
+/* Premium Spotify Player */
+#spotify-player-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.spotify-glass-card {
+    position: relative;
+    width: 300px;
+    height: 80px;
+    background: rgba(10, 10, 20, 0.4);
+    backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.spotify-glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-emerald) 0%, transparent 50%, var(--accent-blue) 100%);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.spotify-glass-card:hover {
+    height: 152px;
+    background: rgba(15, 15, 25, 0.6);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+#spotify-embed {
+    width: 100%;
+    height: 152px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.spotify-glass-card:hover #spotify-embed {
+    opacity: 1;
+}
+
+.player-controls-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.spotify-glass-card:hover .player-controls-overlay {
+    opacity: 0;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.track-visualizer {
+    display: flex;
+    gap: 4px;
+    height: 20px;
+    align-items: flex-end;
+}
+
+.track-visualizer span {
+    width: 3px;
+    background: linear-gradient(to top, var(--accent-blue), var(--accent-emerald));
+    border-radius: 2px;
+    animation: visualize-elite 1.2s ease-in-out infinite;
+}
+
+.track-visualizer span:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.track-visualizer span:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.track-visualizer span:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+.track-visualizer span:nth-child(4) { height: 90%; animation-delay: 0.5s; }
+.track-visualizer span:nth-child(5) { height: 50%; animation-delay: 0.4s; }
+
+@keyframes visualize-elite {
+    0%, 100% { height: 30%; filter: brightness(1); }
+    50% { height: 100%; filter: brightness(1.5) drop-shadow(0 0 5px var(--accent-emerald)); }
+}
 
 /* Animations */
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -297,6 +398,8 @@ body.cursor-hover .cursor-outline {
     #custom-cursor { display: none; }
     .glass-ultimate { border-radius: 1.5rem; padding: 1.5rem; }
     .hero-title { font-size: 2rem; }
+    #spotify-player-container { bottom: 1rem; right: 1rem; left: 1rem; transform: translateY(100px); }
+    .spotify-glass-card { width: 100%; }
 }
 
 .float-soft {

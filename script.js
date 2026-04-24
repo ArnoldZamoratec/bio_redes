@@ -8,62 +8,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     const debrisContainer = document.getElementById('tech-debris');
+    const spotifyContainer = document.getElementById('spotify-player-container');
+    const spotifyToggle = document.getElementById('spotify-toggle');
+    const spotifyVisualizer = spotifyToggle.querySelector('.audio-visualizer');
+    
+    let spotifyEmbedController = null;
     
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
     let prevMouseX = 0, prevMouseY = 0;
     let mouseVelocity = 0;
     let isClicking = false, isEntering = false;
-    let audioInitiated = false;
 
-    // --- Audio Engine (Procedural Tech Music) ---
-    let audioCtx, droneOsc, filter, gainNode;
+    // --- Spotify Elite Controller ---
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const element = document.getElementById('spotify-embed');
+        const options = {
+            width: '100%',
+            height: '152',
+            uri: 'spotify:track:0vbtURX4qv1l7besfwmnD8',
+            theme: 'dark'
+        };
+        const callback = (EmbedController) => {
+            spotifyEmbedController = EmbedController;
+            
+            spotifyToggle.addEventListener('click', () => {
+                spotifyContainer.classList.toggle('show');
+                spotifyVisualizer.classList.toggle('active');
+            });
 
-    function initAudio() {
-        if (audioInitiated) return;
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Deep Drone
-        droneOsc = audioCtx.createOscillator();
-        const droneOsc2 = audioCtx.createOscillator();
-        filter = audioCtx.createBiquadFilter();
-        gainNode = audioCtx.createGain();
+            EmbedController.addListener('playback_update', e => {
+                if (e.data.isPaused) {
+                    spotifyVisualizer.classList.remove('active');
+                } else {
+                    spotifyVisualizer.classList.add('active');
+                }
+            });
+        };
+        IFrameAPI.createController(element, options, callback);
+    };
 
-        droneOsc.type = 'sawtooth';
-        droneOsc.frequency.setValueAtTime(55, audioCtx.currentTime); // A1
-        droneOsc2.type = 'square';
-        droneOsc2.frequency.setValueAtTime(110, audioCtx.currentTime); // A2
-
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(200, audioCtx.currentTime);
-        filter.Q.setValueAtTime(10, audioCtx.currentTime);
-
-        gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); // Very subtle
-
-        droneOsc.connect(filter);
-        droneOsc2.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        droneOsc.start();
-        droneOsc2.start();
-        audioInitiated = true;
-    }
-
-    function playTechPing(freq = 800, volume = 0.1) {
-        if (!audioCtx) return;
-        const osc = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.1);
-        g.gain.setValueAtTime(volume, audioCtx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
-        osc.connect(g);
-        g.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.1);
-    }
 
     // --- Cursor & Velocity Logic ---
     document.addEventListener('mousemove', (e) => {
@@ -77,11 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         prevMouseX = mouseX;
         prevMouseY = mouseY;
 
-        // Dynamic audio tweak based on velocity
-        if (audioInitiated) {
-            filter.frequency.setTargetAtTime(200 + mouseVelocity * 5, audioCtx.currentTime, 0.1);
-            gainNode.gain.setTargetAtTime(Math.min(0.03, 0.01 + mouseVelocity * 0.0005), audioCtx.currentTime, 0.2);
-        }
 
         if (!isEntering) {
             cursor.style.opacity = '1';
@@ -111,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     links.forEach(link => {
         link.addEventListener('mouseenter', () => {
             document.body.classList.add('cursor-hover');
-            playTechPing(1200, 0.05);
         });
         link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
@@ -228,10 +206,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Entry ---
     overlay.addEventListener('click', () => {
-        initAudio();
-        playTechPing(1500, 0.2);
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
+        
+        // Show Spotify Player with delay for impact
+        setTimeout(() => {
+            spotifyContainer.classList.add('show');
+            if (spotifyEmbedController) {
+                // Spotify requires user interaction, which this click provides
+                spotifyEmbedController.play();
+            }
+        }, 1500);
         
         setTimeout(() => {
             overlay.style.display = 'none';
